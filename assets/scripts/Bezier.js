@@ -68,7 +68,7 @@
         }
 
         var bezierPoints = [];
-        for (var i = 1; i < originCount - 1; i++) {
+        for (var i = 1; i < originCount - 2; i++) {
             var extraindex = 2 * i;
             var extranexti = (extraindex + 2) % (2 * originCount);
             var nexti = (i + 1) % originCount;
@@ -82,7 +82,7 @@
         var points = [];
         var count = bezierPoints.length;
         for (var i = 0; i < count; i++) {
-            for (var t = 0; t <= 1; t += 0.02) {
+            for (var t = 0; t <= 1; t += 0.025) {
                 points.push(bezierPoints[i].getPointAtTime(t));
             }
         }

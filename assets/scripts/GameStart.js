@@ -3,11 +3,13 @@ cc.Class({
 
     onLoad () {
         cc.director.getPhysicsManager().enabled = true;
-        cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
-            cc.PhysicsManager.DrawBits.e_pairBit |
-            cc.PhysicsManager.DrawBits.e_centerOfMassBit |
-            cc.PhysicsManager.DrawBits.e_jointBit |
-            cc.PhysicsManager.DrawBits.e_shapeBit;
+        var flags = 0;
+        //flags += cc.PhysicsManager.DrawBits.e_aabbBit;
+        flags += cc.PhysicsManager.DrawBits.e_pairBit;
+        flags += cc.PhysicsManager.DrawBits.e_centerOfMassBit;
+        flags += cc.PhysicsManager.DrawBits.e_jointBit;
+        flags += cc.PhysicsManager.DrawBits.e_shapeBit;
+        cc.director.getPhysicsManager().debugDrawFlags = flags;
     },
 
 });
