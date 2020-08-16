@@ -12,7 +12,8 @@ cc.Class({
         cc.director.getPhysicsManager().debugDrawFlags = flags;
 
         this.ground = cc.find("Ground").getComponent("Ground");
-        this.ground.updateGround([cc.v2(100, 400), cc.v2(600, 300), cc.v2(1000, 0)]);
+        this.ground.updateConfig(cc.TerrainConfig.getLast());
+        this.ground.generateShape();
     },
 
     // update (dt) {},

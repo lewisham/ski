@@ -82,8 +82,9 @@
         var points = [];
         var count = bezierPoints.length;
         for (var i = 0; i < count; i++) {
-            for (var t = 0; t <= 1; t += 0.025) {
-                points.push(bezierPoints[i].getPointAtTime(t));
+            var total = i == count - 1 ? 1000 : 999;
+            for (var t = 0; t <= total; t += 25) {
+                points.push(bezierPoints[i].getPointAtTime(t / 1000));
             }
         }
         return points;
