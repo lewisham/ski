@@ -8,10 +8,20 @@ cc.Class({
         for (var i = 1; i < this.MAX_GROUND; i++) {
             this.spawnGround();
         }
+        this.role = cc.find("Role");
     },
 
     update (dt) {
-        
+        var idx = this._groundIdx;
+        for (var i = 0; i < this.MAX_GROUND - 1; i++) {
+            idx--;
+            idx = idx < 0 ? this.MAX_GROUND - 1 : idx;
+        }
+        var ground = this._grounds[idx];
+        var endPos = ground.getEndPos();
+        if (this.role.x - endPos.x > 640) {
+            this.spawnGround();
+        }
     },
 
     updateTerrain() {
@@ -28,22 +38,28 @@ cc.Class({
         ground.generateShape();
     },
 
-    spawnGround() {
-        this._groundIdx++;
-        if (this._groundIdx > this.MAX_GROUND) {
-            this._groundIdx = 0;
+    nextGround() {
+        var idx = this._groundIdx + 1;
+        if (idx >= this.MAX_GROUND) {
+            idx = 0;
         }
-        cc.log("生成新的地面", this._groundIdx);
-        var idx = this._groundIdx - 1;
-        idx = idx < 0 ? this.MAX_GROUND : idx;
-        var lastGround = this._grounds[idx];
+        this._groundIdx = idx;
+        return idx;
+    },
+
+    spawnGround() {
+        var currentIdx = this.nextGround();
+        cc.log("生成新的地面", currentIdx);
+        var lastIdx = currentIdx - 1;
+        lastIdx = lastIdx < 0 ? this.MAX_GROUND - 1 : lastIdx;
+        var lastGround = this._grounds[lastIdx];
         var endPos = lastGround.getEndPos();
         
         var config = this.getConfig();
         endPos.x -= config._startPos.x;
         endPos.y -= config._startPos.y;
 
-        var ground = this._grounds[this._groundIdx];
+        var ground = this._grounds[currentIdx];
         ground.node.setPosition(endPos)
         ground.updateConfig(config);
         ground.generateShape();

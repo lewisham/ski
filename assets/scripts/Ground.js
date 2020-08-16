@@ -2,14 +2,14 @@ cc.Class({
     extends: cc.Component,
 
     start () {
-        this._config = null;
+        
     },
 
     updateConfig(config) {
         this._config = config;
         this._points = config.getPoints();;
     },
-    
+
     generateShape() {
         var list = cc.BezierUtils.CalcCurvePoint(this._points);
         this._points = cc.BezierUtils.CalcPoints(list);
