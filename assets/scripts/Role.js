@@ -7,8 +7,8 @@ cc.Class({
 
     update (dt) {
         var vec = this.rigidbody.linearVelocity;
-        if (vec.x < 100) {
-            vec.x = 100;
+        if (vec.x < 300) {
+            vec.x = 300;
             this.rigidbody.linearVelocity = vec;
         }
     },

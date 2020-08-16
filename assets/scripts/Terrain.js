@@ -2,6 +2,7 @@ cc.Class({
     extends: cc.Component,
     start () {
         this.MAX_GROUND = 5;
+        this._groundCount = 0;
         this._grounds = this.node.getComponentsInChildren("Ground");
         this._groundIdx = 0;
         this.spawnFirstGround();
@@ -33,12 +34,14 @@ cc.Class({
     },
 
     spawnFirstGround() {
+        this._groundCount = 1;
         var ground = this._grounds[this._groundIdx];
         ground.updateConfig(this.getConfig());
         ground.generateShape();
     },
 
     nextGround() {
+        this._groundCount++;
         var idx = this._groundIdx + 1;
         if (idx >= this.MAX_GROUND) {
             idx = 0;
@@ -49,7 +52,7 @@ cc.Class({
 
     spawnGround() {
         var currentIdx = this.nextGround();
-        cc.log("生成新的地面", currentIdx);
+        cc.log("生成新的地面", this._groundCount);
         var lastIdx = currentIdx - 1;
         lastIdx = lastIdx < 0 ? this.MAX_GROUND - 1 : lastIdx;
         var lastGround = this._grounds[lastIdx];
